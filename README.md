@@ -1,6 +1,6 @@
 # Belgian Houses Fair Value
 
-A map of every house currently for sale in Belgium, coloured by how over- or under-priced it is against a LightGBM fair-value model. Click any listing for its model-estimated fair value, an 80% prediction band, the top SHAP drivers, and five comparable listings nearby.
+An interactive map of every home currently listed for sale in Belgium, where each property is color coded by how over- or under-priced it appears relative to a machine learning valuation model trained on historical Belgian real estate data. Click any listing for its model-estimated fair value, an 80% prediction band, the top SHAP drivers, and five comparable listings nearby.
 
 **Live demo:** [belgian-house-fair-value.pages.dev](https://belgian-house-fair-value.pages.dev)
 
