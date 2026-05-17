@@ -1,0 +1,98 @@
+name: Refresh data and deploy
+
+# Nightly refresh: re-pull the S3 snapshot + BigQuery export, retrain the
+# model, rebuild the web bundle, redeploy to Cloudflare Pages.
+#
+
+on:
+  schedule:
+    - cron: "17 4 * * *"        # 04:17 UTC every day (≈ 06:17 Belgium, post-scrape)
+  workflow_dispatch: {}          # manual trigger from the Actions tab
+
+# Narrow the default GITHUB_TOKEN to just what this workflow needs.
+permissions:
+  contents: read
+  id-token: write               # required by google-github-actions/auth@v2
+
+concurrency:
+  group: refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120              # 30 minutes is enough. Put to 2h and forget about it.
+    env:
+      PYTHONUNBUFFERED: "1"           # keep progress lines flushing to the workflow log
+      # Pipeline configuration: These are not credentials but we keep them
+      # out of the source tree, so the scripts require them as env vars.
+      IMMOWEB_S3_BUCKET: ${{ vars.IMMOWEB_S3_BUCKET }}
+      IMMOWEB_S3_PREFIX: ${{ vars.IMMOWEB_S3_PREFIX }}
+      IMMOWEB_GCP_PROJECT: ${{ vars.IMMOWEB_GCP_PROJECT }}
+      IMMOWEB_BQ_DATASET: ${{ vars.IMMOWEB_BQ_DATASET }}
+      IMMOWEB_BQ_TABLE: ${{ vars.IMMOWEB_BQ_TABLE }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+          enable-cache: true
+
+      - name: Install Python dependencies
+        run: uv sync --frozen
+
+      - name: Auth with Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+
+      - name: Fetch active-listings snapshot from S3
+        run: uv run python scripts/00_fetch_active_snapshot.py
+
+      - name: Export BigQuery view to Parquet
+        run: uv run python scripts/01_export_bq.py
+
+      - name: Train + score + emit web parquet
+        run: uv run python scripts/02_train_model.py
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install frontend dependencies
+        run: bun install --frozen-lockfile
+        working-directory: web
+
+      - name: Build frontend
+        run: bun run build
+        working-directory: web
+
+      - name: Deploy to Cloudflare Pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+        run: |
+          bunx wrangler pages deploy dist \
+            --project-name=belgian-house-fair-value \
+            --branch=main \
+            --commit-dirty=true
+        working-directory: web
+
+      - name: Upload metrics as a run artefact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: model-metrics-${{ github.run_id }}
+          path: |
+            data/metrics.json
+            data/residuals_test.csv
+          retention-days: 30

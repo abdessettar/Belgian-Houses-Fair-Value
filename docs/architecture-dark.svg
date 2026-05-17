@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 620" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Inter, system-ui, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#f5f5f7"/>
+    </marker>
+  </defs>
+
+  <rect width="1180" height="620" fill="#0d0d0f"/>
+
+  <!-- ============ INGEST PANEL ============ -->
+  <rect x="40" y="80" width="320" height="420" rx="24" fill="#1c1c1e"/>
+  <text x="64" y="118" font-size="12" font-weight="600" fill="#8e8e93" letter-spacing="2.5">INGEST</text>
+
+  <rect x="70" y="148" width="260" height="100" rx="16" fill="#2c2c2e" stroke="#3a3a3c" stroke-width="1"/>
+  <text x="200" y="184" text-anchor="middle" font-size="18" font-weight="600" fill="#f5f5f7">BigQuery</text>
+  <text x="200" y="208" text-anchor="middle" font-size="12.5" fill="#aeaeb2">historical listings</text>
+  <text x="200" y="232" text-anchor="middle" font-size="11" fill="#8e8e93" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">01_export_bq.py</text>
+
+  <rect x="70" y="276" width="260" height="100" rx="16" fill="#2c2c2e" stroke="#3a3a3c" stroke-width="1"/>
+  <text x="200" y="312" text-anchor="middle" font-size="18" font-weight="600" fill="#f5f5f7">AWS S3</text>
+  <text x="200" y="336" text-anchor="middle" font-size="12.5" fill="#aeaeb2">currently-online, daily</text>
+  <text x="200" y="360" text-anchor="middle" font-size="11" fill="#8e8e93" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">00_fetch_active_snapshot.py</text>
+
+  <text x="200" y="460" text-anchor="middle" font-size="11.5" fill="#8e8e93">Python · uv · pandas</text>
+
+  <!-- Arrow Ingest -> Train -->
+  <path d="M 365 290 L 415 290" fill="none" stroke="#f5f5f7" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ============ TRAIN PANEL ============ -->
+  <rect x="420" y="80" width="320" height="420" rx="24" fill="#1c1c1e"/>
+  <text x="444" y="118" font-size="12" font-weight="600" fill="#8e8e93" letter-spacing="2.5">TRAIN</text>
+
+  <rect x="450" y="148" width="260" height="290" rx="16" fill="#2c2c2e" stroke="#3a3a3c" stroke-width="1"/>
+  <text x="580" y="190" text-anchor="middle" font-size="20" font-weight="600" fill="#f5f5f7">LightGBM</text>
+  <text x="580" y="213" text-anchor="middle" font-size="12" fill="#aeaeb2">tabular regression on log price</text>
+
+  <line x1="485" y1="234" x2="675" y2="234" stroke="#3a3a3c" stroke-width="1"/>
+
+  <text x="580" y="260" text-anchor="middle" font-size="13.5" fill="#f5f5f7">temporal split</text>
+  <text x="580" y="284" text-anchor="middle" font-size="13.5" fill="#f5f5f7">Optuna tuning</text>
+  <text x="580" y="308" text-anchor="middle" font-size="13.5" fill="#f5f5f7">quantile heads</text>
+  <text x="580" y="332" text-anchor="middle" font-size="13.5" fill="#f5f5f7">split-conformal</text>
+  <text x="580" y="356" text-anchor="middle" font-size="13.5" fill="#f5f5f7">TreeSHAP → €</text>
+  <text x="580" y="380" text-anchor="middle" font-size="13.5" fill="#f5f5f7">leaf similarity</text>
+  <text x="580" y="412" text-anchor="middle" font-size="11" fill="#8e8e93" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">02_train_model.py</text>
+
+  <text x="580" y="460" text-anchor="middle" font-size="11.5" fill="#8e8e93">scikit-learn · Optuna · SHAP</text>
+
+  <!-- Parquet bridge -->
+  <path d="M 745 290 L 780 290" fill="none" stroke="#f5f5f7" stroke-width="1.5"/>
+  <rect x="780" y="262" width="120" height="56" rx="14" fill="#2c2c2e" stroke="#f5f5f7" stroke-width="1.5"/>
+  <text x="840" y="286" text-anchor="middle" font-size="13" font-weight="600" fill="#f5f5f7">Parquet</text>
+  <text x="840" y="304" text-anchor="middle" font-size="10.5" fill="#aeaeb2">the contract</text>
+  <path d="M 900 290 L 935 290" fill="none" stroke="#f5f5f7" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ============ SERVE PANEL ============ -->
+  <rect x="940" y="80" width="200" height="420" rx="24" fill="#1c1c1e"/>
+  <text x="964" y="118" font-size="12" font-weight="600" fill="#8e8e93" letter-spacing="2.5">SERVE</text>
+
+  <rect x="966" y="148" width="148" height="180" rx="16" fill="#2c2c2e" stroke="#3a3a3c" stroke-width="1"/>
+  <text x="1040" y="184" text-anchor="middle" font-size="18" font-weight="600" fill="#f5f5f7">Browser</text>
+  <text x="1040" y="208" text-anchor="middle" font-size="12" fill="#aeaeb2">static, edge-hosted</text>
+  <line x1="985" y1="225" x2="1095" y2="225" stroke="#3a3a3c" stroke-width="1"/>
+  <text x="1040" y="248" text-anchor="middle" font-size="13" fill="#f5f5f7">DuckDB-WASM</text>
+  <text x="1040" y="270" text-anchor="middle" font-size="13" fill="#f5f5f7">MapLibre GL</text>
+  <text x="1040" y="292" text-anchor="middle" font-size="13" fill="#f5f5f7">React · Vite</text>
+  <text x="1040" y="318" text-anchor="middle" font-size="11" fill="#8e8e93">Cloudflare Pages</text>
+
+  <!-- Arrow Browser -> NL search -->
+  <path d="M 1040 332 L 1040 372" fill="none" stroke="#f5f5f7" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- NL search -->
+  <rect x="966" y="376" width="148" height="92" rx="16" fill="#2c2c2e" stroke="#3a3a3c" stroke-width="1"/>
+  <text x="1040" y="404" text-anchor="middle" font-size="14" font-weight="600" fill="#f5f5f7">/api/nl-search</text>
+  <text x="1040" y="424" text-anchor="middle" font-size="11.5" fill="#aeaeb2">→ DeepSeek (JSON mode)</text>
+  <text x="1040" y="446" text-anchor="middle" font-size="11" fill="#8e8e93">Pages Function</text>
+
+  <!-- Caption -->
+  <text x="590" y="560" text-anchor="middle" font-size="14" fill="#8e8e93">A frozen Parquet bridges training and serving. Nothing dynamic on a server.</text>
+</svg>

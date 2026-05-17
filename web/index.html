@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- We want to fly under the radar, so no referer to stay invisible-ish:
+         Suppress the Referer header on every outbound navigation, including
+         deep-links to immoweb.be from listing detail cards. We already set
+         rel="noreferrer noopener" on each <a> individually; this is a
+         site-wide guarantee in case a future link is added without it. -->
+    <meta name="referrer" content="no-referrer" />
+    <title>Belgian Houses Fair Value</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

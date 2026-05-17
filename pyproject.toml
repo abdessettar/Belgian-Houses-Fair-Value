@@ -1,0 +1,25 @@
+[project]
+name = "belgian-house-fair-value"
+version = "0.1.0"
+description = "Belgian House Fair Value: data + model pipeline for the web app."
+requires-python = ">=3.12"
+dependencies = [
+    "boto3>=1.42.93",
+    "db-dtypes>=1.5.1",
+    "google-cloud-bigquery>=3.41.0",
+    "ipykernel>=7.2.0",
+    "jupyter>=1.1.1",
+    "lightgbm>=4.6.0",
+    "matplotlib>=3.10.8",
+    "optuna>=4.8.0",
+    "optuna-integration[lightgbm]>=4.8.0",
+    "pandas>=2.3.3",
+    "pyarrow>=24.0.0",
+    "scikit-learn>=1.8.0",
+    "shap>=0.51.0",
+]
+
+[dependency-groups]
+dev = [
+    "openpyxl>=3.1.5",
+]

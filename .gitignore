@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.venv
+.ipynb_checkpoints/
+
+# Data artifacts (regenerated via scripts/) + geo data that is too large for GitHub and downloaded online
+data/*.parquet
+data/geodata/*
+
+# Web
+web/node_modules/
+web/dist/
+web/.wrangler/
+web/.dev.vars
+web/public/listings_web.parquet
+web/public/metrics.json
+
+# Env / secrets
+.env
+
+# Local tooling state
+.wrangler/
+
+# OS
+.DS_Store

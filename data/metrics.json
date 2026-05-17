@@ -1,0 +1,151 @@
+{
+  "split": {
+    "n_train": 37277,
+    "n_val": 7988,
+    "n_test": 7988,
+    "scheme": "temporal (sorted by publication_lastModificationDate)"
+  },
+  "baselines": {
+    "global_mean": {
+      "mae_eur": 256538,
+      "rmse_eur": 466245,
+      "r2": 0.0,
+      "mape": 0.637,
+      "median_ape": 0.4221
+    },
+    "commune_median_eur_per_m2": {
+      "mae_eur": 147098,
+      "rmse_eur": 274134,
+      "r2": 0.6537,
+      "mape": 0.3047,
+      "median_ape": 0.2091
+    },
+    "ridge_basic": {
+      "mae_eur": 134757,
+      "rmse_eur": 321647,
+      "r2": 0.5271,
+      "mape": 0.2522,
+      "median_ape": 0.1778
+    }
+  },
+  "lightgbm": {
+    "mae_eur": 90353,
+    "rmse_eur": 202404,
+    "r2": 0.8152,
+    "mape": 0.1623,
+    "median_ape": 0.1143,
+    "coverage_80pct_raw": 0.8797,
+    "coverage_80pct_conformal": 0.7949,
+    "conformal_q_hat_eur": -21951,
+    "target_coverage": 0.8
+  },
+  "best_params": {
+    "learning_rate": 0.10158001895476908,
+    "num_leaves": 86,
+    "max_depth": 8,
+    "min_data_in_leaf": 22,
+    "feature_fraction": 0.8924418741936804,
+    "bagging_fraction": 0.6390606176878837,
+    "bagging_freq": 3,
+    "lambda_l1": 0.0010335842393201624,
+    "lambda_l2": 0.19058643672314424,
+    "min_gain_to_split": 0.004575767654135546,
+    "best_iteration": 1327
+  },
+  "median_ape_by_province": {
+    "1": {
+      "median": 0.1124,
+      "count": 1355
+    },
+    "2": {
+      "median": 0.1043,
+      "count": 1354
+    },
+    "3": {
+      "median": 0.0983,
+      "count": 557
+    },
+    "4": {
+      "median": 0.1292,
+      "count": 1023
+    },
+    "5": {
+      "median": 0.1365,
+      "count": 270
+    },
+    "6": {
+      "median": 0.1324,
+      "count": 692
+    },
+    "7": {
+      "median": 0.1375,
+      "count": 246
+    },
+    "8": {
+      "median": 0.1252,
+      "count": 1007
+    },
+    "9": {
+      "median": 0.105,
+      "count": 1484
+    }
+  },
+  "median_ape_by_subtype": {
+    "APARTMENT_BLOCK": {
+      "median": 0.1574,
+      "count": 320
+    },
+    "BUNGALOW": {
+      "median": 0.1328,
+      "count": 83
+    },
+    "CASTLE": {
+      "median": 0.3559,
+      "count": 1
+    },
+    "CHALET": {
+      "median": 0.2342,
+      "count": 16
+    },
+    "COUNTRY_COTTAGE": {
+      "median": 0.1273,
+      "count": 35
+    },
+    "EXCEPTIONAL_PROPERTY": {
+      "median": 0.1423,
+      "count": 129
+    },
+    "FARMHOUSE": {
+      "median": 0.3066,
+      "count": 20
+    },
+    "HOUSE": {
+      "median": 0.1083,
+      "count": 6225
+    },
+    "MANOR_HOUSE": {
+      "median": 0.3267,
+      "count": 6
+    },
+    "MANSION": {
+      "median": 0.1439,
+      "count": 115
+    },
+    "MIXED_USE_BUILDING": {
+      "median": 0.1598,
+      "count": 232
+    },
+    "OTHER_PROPERTY": {
+      "median": 0.1107,
+      "count": 6
+    },
+    "TOWN_HOUSE": {
+      "median": 0.0887,
+      "count": 97
+    },
+    "VILLA": {
+      "median": 0.1351,
+      "count": 703
+    }
+  }
+}

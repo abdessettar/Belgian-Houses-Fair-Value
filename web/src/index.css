@@ -1,0 +1,5 @@
+/* Base resets only; the theme tokens live in App.css and are consumed via
+   var(--bg) / var(--text) here so this file follows the active theme. */
+html, body, #root { height: 100%; margin: 0; }
+body { font-family: -apple-system, system-ui, Segoe UI, Roboto, sans-serif; color: var(--text); background: var(--bg); }
+#root { width: 100%; }
