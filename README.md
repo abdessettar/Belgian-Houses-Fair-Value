@@ -4,7 +4,7 @@ An interactive map of every home currently listed for sale in Belgium, where eac
 
 **Live demo:** [belgian-house-fair-value.pages.dev](https://belgian-house-fair-value.pages.dev)
 
-**Article explaining the methodology followed:** [`Belgian Houses Fair Value`](https://abdessettar.xyz/projects/spotify-gold-eda-new/).
+**Article explaining the methodology followed:** [`Belgian Houses Fair Value`](https://abdessettar.xyz/projects/belgian-houses-fair-value/).
 
 ![Demo](docs/demo.gif)
 
